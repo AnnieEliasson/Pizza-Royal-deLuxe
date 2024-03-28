@@ -1,0 +1,83 @@
+import React, { createContext, useReducer } from "react";
+import calcPrice from "./Calk";
+
+type PropList = {
+  children: React.ReactNode;
+};
+
+export type Topping = {
+  [key: string]: boolean;
+};
+
+export type Pizza = {
+  id: string;
+  size: string;
+  toppings: Topping;
+  totalPrice: number;
+};
+
+type PizzaState = {
+  pizzas: Pizza[];
+};
+
+const initialPizzas: PizzaState = {
+  pizzas: [
+    //  {
+    //   id: uuid(),
+    //   size: "small",
+    //   toppings: {
+    //     pommes: false,
+    //     sås: false,
+    //     skinka: false,
+    //   },
+    //   totalPrice: 0,
+    // },
+  ],
+};
+
+type Action =
+  | { type: "ADD"; payload: Pizza }
+  | { type: "REMOVE"; payload: string }
+  | { type: "EDIT"; payload: { size: string; id: string } };
+
+const reducer = (state: PizzaState, action: Action) => {
+  switch (action.type) {
+    case "ADD":
+      return { pizzas: [...state.pizzas, action.payload] };
+
+    case "REMOVE":
+      return {
+        pizzas: [...state.pizzas.filter((p) => p.id != action.payload)],
+      };
+
+    case "EDIT":
+      const edited = state.pizzas.filter((p) => p.id === action.payload.id);
+      edited[0].size = action.payload.size;
+      let totalPrice = calcPrice(edited[0]);
+      edited[0].totalPrice = totalPrice;
+
+      return { pizzas: [...state.pizzas] };
+  }
+
+  return state;
+};
+
+export const PizzaContext = createContext<{
+  state: PizzaState;
+  dispatch: React.Dispatch<Action>;
+}>({
+  state: initialPizzas,
+  dispatch: () => null,
+});
+
+const PizzaContextProvider = ({ children }: PropList) => {
+  const [state, dispatch] = useReducer(reducer, initialPizzas);
+
+  return (
+    <PizzaContext.Provider value={{ state, dispatch }}>
+      {children}
+    </PizzaContext.Provider>
+  );
+};
+
+export default PizzaContextProvider;
