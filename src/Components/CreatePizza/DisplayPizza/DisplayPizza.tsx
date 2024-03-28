@@ -24,7 +24,7 @@ const DisplayPizza = ({ pizza }: PropList) => {
         })}
       </p>
 
-      <p>
+      <p className="price">
         <b>Pris: {pizza.totalPrice}kr.</b>
       </p>
     </div>

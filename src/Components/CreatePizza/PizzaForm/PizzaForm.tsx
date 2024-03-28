@@ -9,7 +9,6 @@ export const toppingItems = [
   "kebab",
   "paprika",
   "ananas",
-  "grill chips",
 ];
 const sizeButtons = ["Small", "Medium", "Large"];
 
