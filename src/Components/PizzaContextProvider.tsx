@@ -16,37 +16,37 @@ export type Pizza = {
   totalPrice: number;
 };
 
+export type Drink = {
+  id: string;
+  size: string;
+  name: string;
+  totalPrice: number;
+};
+
 type PizzaState = {
   pizzas: Pizza[];
+  drinks: Drink[];
 };
 
 const initialPizzas: PizzaState = {
-  pizzas: [
-    //  {
-    //   id: uuid(),
-    //   size: "small",
-    //   toppings: {
-    //     pommes: false,
-    //     sås: false,
-    //     skinka: false,
-    //   },
-    //   totalPrice: 0,
-    // },
-  ],
+  pizzas: [],
+  drinks: [],
 };
 
 type Action =
   | { type: "ADD"; payload: Pizza }
   | { type: "REMOVE"; payload: string }
-  | { type: "EDIT"; payload: { size: string; id: string } };
+  | { type: "EDIT"; payload: { size: string; id: string } }
+  | { type: "ADD-Drink"; payload: Drink }
 
 const reducer = (state: PizzaState, action: Action) => {
   switch (action.type) {
     case "ADD":
-      return { pizzas: [...state.pizzas, action.payload] };
+      return { ...state, pizzas: [...state.pizzas, action.payload] };
 
     case "REMOVE":
       return {
+        ...state,
         pizzas: [...state.pizzas.filter((p) => p.id != action.payload)],
       };
 
@@ -56,7 +56,12 @@ const reducer = (state: PizzaState, action: Action) => {
       let totalPrice = calcPrice(edited[0]);
       edited[0].totalPrice = totalPrice;
 
-      return { pizzas: [...state.pizzas] };
+      return { ...state, pizzas: [...state.pizzas] };
+
+    case "ADD-Drink":
+      console.log(state.drinks);
+
+      return {...state, drinks: [...state.drinks, action.payload]}
   }
 
   return state;

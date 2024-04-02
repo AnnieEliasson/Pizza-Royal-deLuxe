@@ -16,11 +16,24 @@ const CreatePizza = () => {
 
   calcPrice(pizza);
 
+  const handleClick = () => {
+    const createPizza = document.querySelector(".Create-Pizza") as HTMLElement
+    const createDrink = document.querySelector(".Create-Drink") as HTMLElement
+    createPizza.classList.toggle("active")
+    createDrink.classList.toggle("active")
+  }
+
   return (
-    <div className="Create-Pizza">
+    <div className="Create-Pizza active">
       <h1>Sätt ihop din Pizza</h1>
 
+      <ul className="flikar">
+        <li>Pizza</li>
+        <li onClick={handleClick}>Dricka</li>
+      </ul>
+
       <PizzaForm pizza={pizza} SetPizza={SetPizza} />
+ 
 
       <DisplayPizza pizza={pizza} />
 

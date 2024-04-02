@@ -79,13 +79,15 @@ input[type="radio"],
 input[type="checkbox"] {
   accent-color: rgb(164, 66, 5);
 }
-.Create-Pizza {
+.Create-Pizza, .Create-Drink {
   background: linear-gradient(130deg, rgb(26, 39, 45), rgb(14, 21, 24));
   padding: 30px;
   width: 400px;
-  display: flex;
+  display: none;
   flex-direction: column;
   box-shadow: 0 0 5px black;
+  position: relative;
+
 
   h1 {
     text-align: center;
@@ -102,6 +104,34 @@ input[type="checkbox"] {
       color: rgb(161, 241, 255);
     }
   }
+
+
+  .flikar{
+    position: absolute;
+    top: 40px;
+    right: -76px;
+
+    li{
+      font-family: "Lobster Two", sans-serif;
+      transform: rotate(90deg);
+      margin-bottom: 70px;
+      background: linear-gradient(130deg, rgb(26, 39, 45), rgb(14, 21, 24));
+      padding: 10px 20px;
+      border-radius: 10px 10px 0px 0;
+      border: 1px solid black;
+      border-bottom: 0;
+      font-size: 20px;
+      text-align: center;
+      box-shadow: 2px 0px 2px black,
+      inset 0px -2px 5px black;
+      cursor: pointer;
+    }
+  }
+}
+
+.active{
+  display: flex;
+  
 }
 
 .your-pizza {

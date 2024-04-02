@@ -9,6 +9,9 @@ const Cart = () => {
     state.pizzas.forEach((p) => {
       totalAmount = totalAmount + p.totalPrice;
     });
+    state.drinks.forEach((d)=>{
+      totalAmount = totalAmount + d.totalPrice;
+    })
   };
   endPrice();
 
@@ -66,10 +69,17 @@ const Cart = () => {
             </li>
           );
         })}
-        <b>
-          <p>Total Summa: {totalAmount}kr.</p>
-        </b>
       </ul>
+      <ul>
+        {
+          state.drinks.map((d)=>{
+            return <li key={d.id}><b>{d.name}</b> - {d.size}<p>Pris: {d.totalPrice}kr.</p></li>
+          })
+        }
+      </ul>
+      <b>
+        <p>Total Summa: {totalAmount}kr.</p>
+      </b>
     </div>
   );
 };
